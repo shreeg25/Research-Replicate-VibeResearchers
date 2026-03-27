@@ -12,50 +12,6 @@ This project implements a simplified replication of the "Efficient and Effective
 *   **Routing Distribution Visualization**: Generates a bar chart illustrating how geographical tokens are routed to different experts, providing insights into the model's decision-making.
 *   **Data Directory Validation**: A utility script (`check_data.py`) to verify the presence and structure of required input data folders.
 
-## Architecture Diagram
-
-The following diagram illustrates the high-level architecture and data flow within the Landslide EEGMoE Replication project.
-
-```mermaid
-graph TD
-    subgraph Data Ingestion
-        A["Puthumala Training Data"] --> B["HackathonMultiModalDataset (Train)"]
-        C["Wayanad Validation Data"] --> D["HackathonMultiModalDataset (Test)"]
-        B --> E["process_tif"]
-        B --> F["process_nc"]
-        D --> E
-        D --> F
-    end
-
-    subgraph Model Architecture
-        G["Landslide_EEGMoE Model"]
-        G --> H["Geospatial_To_MoE_Encoder"]
-        H --> I["SSMoE_Block"]
-        I --> J["Specific Experts (Top-K Routing)"]
-        I --> K["Shared Experts (Soft Routing)"]
-        I --> L["Specific Router"]
-        I --> M["Shared Router"]
-    end
-
-    subgraph Training & Evaluation
-        N["train.py"]
-        O["plot_routing.py"]
-        P["check_data.py"]
-    end
-
-    B --> N
-    D --> N
-    N --> G
-    G --> N (Predictions & L_aux)
-    N --> Q["Training Loop (Puthumala)"]
-    N --> R["Zero-Shot Evaluation (Wayanad)"]
-    Q --> G (Updates Weights)
-    R --> S["Cross-Domain Accuracy"]
-    G --> O (Routing Data)
-    O --> T["routing_distribution.png"]
-    P --> U["Data Directory Scan"]
-```
-
 ## Project Structure
 
 ```
