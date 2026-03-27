@@ -27,6 +27,7 @@ landslide_eegmoe_replication/
 ├── models.py               # Implements the EEGMoE architecture components.
 ├── plot_routing.py         # Generates a visualization of expert routing distribution.
 └── train.py                # Main script for training and cross-domain evaluation.
+└── usp_explainability.py   #Script for peeking inside the MoE block during validation.
 ```
 
 ## Technical Stack
